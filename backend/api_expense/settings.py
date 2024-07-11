@@ -96,7 +96,7 @@ DATABASES = {
         "NAME": "expense_db",
         "USER": "root",
         "PASSWORD": "codopass123",
-        "HOST": "127.0.0.1",
+        "HOST": "mysql_host",
         "PORT": "3306",
     }
 }
