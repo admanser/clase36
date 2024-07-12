@@ -96,7 +96,7 @@ DATABASES = {
         "NAME": "expense_db",
         "USER": "root",
         "PASSWORD": "codopass123",
-        "HOST": "mysql_host",
+        "HOST": "mysql",
         "PORT": "3306",
     }
 }
@@ -155,4 +155,4 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ORIGIN_WHITELIST = ('http://0.0.0.0:8000',)
+CORS_ORIGIN_WHITELIST = ('http://localhost:5000',)

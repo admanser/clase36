@@ -10,6 +10,13 @@
 </head>
 
 <body>
+    <header class="header-container">
+        <h1>Codo A Codo | Trabajo Final - BACKEND (python)</h1>
+        <h2>TEAM 5</h2>
+        <p>Integrantes: Barbara Tissera | Guillermo Boccardo | Paula Jimena Ruiz | Sergio Manzaraz</p>
+    </header>
+
+    <div class="name-project-container"><h3>API-Expense tracker > Gestion de una BBDD que registra los gastos corrientes.</h3></div>
 
     <div class="container">
 
@@ -25,44 +32,52 @@
             </ul>
 
             <section id="charge_expense">
-                <form id="charge_expense_form" onsubmit="event.preventDefault(); addExpense();">
-                    <label>Ingresar categoria:</label>
-                    <select name="category">
-                        <option value="FOOD">Food</option>
-                        <option value="TRANSPORT">Transport</option>
-                        <option value="HEALTH">Health</option>
-                        <option value="ENTERTAINMENT">Entertainment</option>
-                        <option value="EDUCATION">Education</option>
-                        <option value="SERVICES">Services</option>
-                        <option value="GENERAL">General</option>
-                        <option value="OTHER">Other</option>
-                    </select>
-                    <br>
-                    <label>Ingresar detalle:</label>
-                    <input type="text" name="expense_detail" required>
-                    <br>
-                    <label>Ingresar divisa:</label>
-                    <select name="currency">
-                        <option value="USD">US Dollar</option>
-                        <option value="EUR">Euro</option>
-                        <option value="ARS">Argentine Peso</option>
-                    </select>
-                    <br>
-                    <label>Ingresar importe:</label>
-                    <input type="number" name="amount" step="0.01" required>
-                    <br>
-                    <label>Ingresar fecha:</label>
-                    <input type="date" name="date" required>
-                    <br>
-                    <button class="secondary-btn" id="btn-post" type="submit">Alta de gasto</button>
+                <form id="charge_expense_form">
+                    <h4>Ingresar los siguientes datos</h4>
+                    <div class="form-group">
+                        <label>Categoria:</label>
+                        <select name="category">
+                            <option value="FOOD">Food</option>
+                            <option value="TRANSPORT">Transport</option>
+                            <option value="HEALTH">Health</option>
+                            <option value="ENTERTAINMENT">Entertainment</option>
+                            <option value="EDUCATION">Education</option>
+                            <option value="SERVICES">Services</option>
+                            <option value="GENERAL">General</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Detalle:</label>
+                        <input type="text" name="expense_detail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ingresar divisa:</label>
+                        <select name="currency">
+                            <option value="USD">US Dollar</option>
+                            <option value="EUR">Euro</option>
+                            <option value="ARS">Argentine Peso</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Importe:</label>
+                        <input type="number" name="amount" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha:</label>
+                        <input type="date" name="date" required>
+                    </div>
+                    <button class="secondary-btn" id="btn-post" type="submit">SUBMIT</button>
                 </form>
+                <button class="secondary-btn" id="btn-close-form">CLOSE</button>
             </section>
 
         </div>
 
         <div class="main">
             <h2>Expense Data</h2>
-            <div id="expenseData"></div>
+            <button class="secondary-btn" id="btn-clean-board">CLEAN</button>
+            <div id="expenseData" class="expense-grid"></div>
         </div>
 
     </div>

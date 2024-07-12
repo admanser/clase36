@@ -1,4 +1,4 @@
-#!/workspaces/clase36/backend/venv/bin/python
+#!/workspaces/api_expense/backend/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

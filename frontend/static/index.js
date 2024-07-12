@@ -1,4 +1,7 @@
-const apiUrl = 'http://127.0.0.1:8000/api/expense/'
+const HOST = "localhost" 
+const PORT = 8000
+const apiUrl = `http://${HOST}:${PORT}/api/expense/`
+//const apiUrl = 'http://127.0.0.1:8000/api/expense/'
 
 // GET // 
 
@@ -16,6 +19,7 @@ btnGet.addEventListener("click", () => {
     .then(data => {
       let container = document.getElementById("expenseData");
       container.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos registros de gastos
+      createHeader(container); // Crea la primer linea con los titulos de los campos
       data.forEach(exp => {
         let expense = new Expense(exp); // Crear instancia de la clase Expense
         container.appendChild(expense.createDiv()); // Agregar el div del expense al contenedor
@@ -25,6 +29,18 @@ btnGet.addEventListener("click", () => {
       console.error('There was a problem with the fetch operation:', error);
     });
 });
+
+function createHeader(container) {
+  const headers = ['Category', 'Detail', 'Currency', 'Amount', 'Date'];
+  const headerDiv = document.createElement('div');
+  headerDiv.classList.add('expense-header');
+  headers.forEach(header => {
+    const div = document.createElement('div');
+    div.textContent = header;
+    headerDiv.appendChild(div);
+  });
+  container.appendChild(headerDiv);
+}
 
 class Expense {
   constructor({ category, expense_detail, currency, amount, date }) {
@@ -37,30 +53,34 @@ class Expense {
 
   // Método para crear un div con los detalles del gasto
   createDiv() {
-    const div = document.createElement('div');
-    div.classList.add('expense-item');
+
+    const fragment = document.createDocumentFragment();
 
     const category = document.createElement('div');
-    category.textContent = `Category: ${this.category}`;
-    div.appendChild(category);
+    category.textContent = this.category;
+    fragment.appendChild(category);
 
     const detail = document.createElement('div');
-    detail.textContent = `Detail: ${this.expense_detail}`;
-    div.appendChild(detail);
+    detail.textContent = this.expense_detail;
+    fragment.appendChild(detail);
 
     const currency = document.createElement('div');
-    currency.textContent = `Currency: ${this.currency}`;
-    div.appendChild(currency);
+    currency.textContent = this.currency;
+    fragment.appendChild(currency);
 
     const amount = document.createElement('div');
-    amount.textContent = `Amount: ${this.amount}`;
-    div.appendChild(amount);
+    amount.textContent = this.amount;
+    fragment.appendChild(amount);
 
     const date = document.createElement('div');
-    date.textContent = `Date: ${this.date}`;
-    div.appendChild(date);
+    date.textContent = this.date;
+    fragment.appendChild(date);
 
-    return div;
+    const itemContainer = document.createElement('div');
+    itemContainer.classList.add('expense-item');
+    itemContainer.appendChild(fragment);
+
+    return itemContainer;
   }
 }
 
@@ -68,10 +88,16 @@ class Expense {
 // POST //
 
 const btnPostForm = document.getElementById("btn-post-form"); // Selección del botón para mostrar el formulario
-const form = document.getElementById("charge_expense_form"); // Selección del formulario a mostrar
+const btnCloseForm = document.getElementById("btn-close-form"); // Selección del botón para ocultar el formulario
+const formSection = document.getElementById("charge_expense"); // Selección de la seccion formulario
+const form = document.getElementById("charge_expense_form"); // Selección del formulario
 
 btnPostForm.addEventListener("click", () => {
-  form.style.display = "block"; // Cambiar el estilo del formulario para mostrarlo
+  formSection.style.display = "block"; // Cambiar el estilo del formulario para mostrarlo
+});
+
+btnCloseForm.addEventListener("click", () => {
+  formSection.style.display = "none"; // Cambiar el estilo del formulario para ocultarlo
 });
 
 const btnPost = document.getElementById("btn-post") // Obtenemos la referencia al botón de envío del formulario
@@ -127,6 +153,12 @@ btnPost.addEventListener("click", (e) => {
 
 // DELETE //
 
+const btnDeleteExpense = document.getElementById("btn-delete"); // Selección del botón para eliminar un gasto
+
+// btnDeleteExpense.addEventListener("click", () => {
+//   formSection.style.display = "none"; // Cambiar el estilo del formulario para ocultarlo
+// });
+
 function deleteExpense() {
   const expenseId = prompt("Enter Expense ID to delete:");
 
@@ -138,6 +170,16 @@ function deleteExpense() {
   })
     .then(response => {
       alert('Expense deleted!');
-      fetchExpenses();
+      //fetchExpenses();
     });
 }
+
+
+// ACCIONES PARA LA PIZARRA //
+
+const btnCleanBoard = document.getElementById("btn-clean-board"); // Selección del botón para borrar la pizarra
+
+btnCleanBoard.addEventListener("click", () => {
+  let container = document.getElementById("expenseData");
+  container.innerHTML = '';
+});
