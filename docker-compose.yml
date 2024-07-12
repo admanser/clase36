@@ -1,18 +1,19 @@
-version: "3.7"
+version: '3.7'
 
 services:
+
   web:
     image: httpd:latest
-    container_name: website
+    container_name: web
     ports:
       - "8081:80"
     volumes:
       - ./frontend:/usr/local/apache2/htdocs/
 
-  mysql_db_container:
+  mysql:
     image: mysql:latest
     container_name: mysql
-    hostname: mysql_host ## agregado con video 36
+    hostname: mysql_host
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: codopass123
@@ -20,21 +21,19 @@ services:
     ports:
       - 3306:3306
 
-  ## Agregado con video 36
-  django:
+  #adminer:
+  #  image: adminer:latest
+  #  environment:
+  #    ADMINER_DEFAULT_SERVER: mysql
+  #  ports:
+  #     - 8080:8080
+
+  backend:
     build: ./backend
-    container_name: django
+    container_name: backend
     volumes:
       - ./backend:/app
     ports:
       - "8000:8000"
     depends_on:
       - mysql
-  ## Fin Agregado
-
-  # adminer_container:
-  #   image: adminer:latest
-  #   environment:
-  #     ADMINER_DEFAULT_SERVER: mysql_db_container
-  #   ports:
-  #     - 8080:8080
